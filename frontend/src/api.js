@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-// In dev, VITE_API_URL=http://localhost:5000/api (set in frontend/.env)
-// In production, Express serves the frontend so relative /api works perfectly
+// Use relative /api — works in production (Express serves frontend on same domain)
+// and locally via Vite's proxy configuration
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: '/api',
   headers: {
     'Content-Type': 'application/json'
   }
