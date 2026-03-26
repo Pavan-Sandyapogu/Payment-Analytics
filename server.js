@@ -22,6 +22,11 @@ app.use('/api/payments', require('./routes/paymentRoutes'));
 app.use('/api/transactions', require('./routes/transactionRoutes'));
 app.use('/api/analytics', require('./routes/analyticsRoutes'));
 
+// Temporary test route
+app.get('/api/test-key', (req, res) => {
+  res.json({ success: true, key: process.env.RAZORPAY_KEY_ID });
+});
+
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
