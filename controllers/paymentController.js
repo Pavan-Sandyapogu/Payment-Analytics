@@ -79,7 +79,17 @@ const verifyPaymentOrder = async (req, res) => {
   }
 };
 
+// @desc    Get Razorpay Key ID
+// @route   GET /api/payments/key
+// @access  Private
+const getRazorpayKey = async (req, res) => {
+  res.status(200).json({
+    key: process.env.RAZORPAY_KEY_ID
+  });
+};
+
 module.exports = {
   createPaymentOrder,
   verifyPaymentOrder,
+  getRazorpayKey,
 };

@@ -77,11 +77,14 @@ const Dashboard = () => {
 
     setLoadingPayment(true);
     try {
-      const { data: orderData } = await api.post('/payments/order', {
-        amount: Number(amount),
-        currency: 'INR',
-        receipt: `receipt_${Date.now()}`
-      });
+      const [{ data: orderData }, { data: keyData }] = await Promise.all([
+        api.post('/payments/order', {
+          amount: Number(amount),
+          currency: 'INR',
+          receipt: `receipt_${Date.now()}`
+        }),
+        api.get('/payments/key')
+      ]);
 
       if (!orderData.success) {
         setLoadingPayment(false);
@@ -89,7 +92,7 @@ const Dashboard = () => {
       }
 
       const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID || '', // Config via .env gracefully injected
+        key: keyData.key, // Dynamically fetched from backend securely!
         amount: orderData.order.amount,
         currency: orderData.order.currency,
         name: 'Expense Tracker Pro',
