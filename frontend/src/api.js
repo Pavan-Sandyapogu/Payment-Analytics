@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-// Automatically construct endpoints relative to the Express backend
+// In dev, VITE_API_URL=http://localhost:5000/api (set in frontend/.env)
+// In production, Express serves the frontend so relative /api works perfectly
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api', // Assumes server spins up mostly on default ports
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   headers: {
     'Content-Type': 'application/json'
   }
