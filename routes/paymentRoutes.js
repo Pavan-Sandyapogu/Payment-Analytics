@@ -2,12 +2,12 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const { createPaymentOrder, verifyPaymentOrder, getRazorpayKey } = require('../controllers/paymentController');
+const { protect } = require('../middleware/authMiddleware');
 
 // @route   GET /api/payments/key
 // @desc    Get Razorpay Key ID securely at runtime
 // @access  Private
 router.get('/key', protect, getRazorpayKey);
-const { protect } = require('../middleware/authMiddleware');
 
 const validateRequest = (req, res, next) => {
   const errors = validationResult(req);
